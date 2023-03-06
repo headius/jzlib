@@ -6,9 +6,19 @@
   <groupId>com.jcraft</groupId>
   <artifactId>jzlib</artifactId>
   <version>1.1.4-SNAPSHOT</version>
+
   <name>JZlib</name>
   <description>JZlib is a re-implementation of zlib in pure Java</description>
   <url>http://www.jcraft.com/jzlib/</url>
+  <inceptionYear>2011</inceptionYear>
+
+  <properties>
+    <maven.compiler.release>8</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <project.github.repository>headius/jzlib</project.github.repository>
+    <repository.url>git@github.com:${project.github.repository}.git</repository.url>
+  </properties>
 
   <organization>
     <name>jcraft</name>
@@ -22,17 +32,69 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <id>ymnk</id>
+      <name>Atsuhiko Yamanaka</name>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:${repository.url}</connection>
+    <developerConnection>scm:git:${repository.url}</developerConnection>
+    <url>${repository.url}</url>
+    <tag>HEAD</tag>
+  </scm>
+
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-          <optimize>true</optimize>
-        </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <attach>true</attach>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <attach>true</attach>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
